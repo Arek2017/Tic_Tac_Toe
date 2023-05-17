@@ -16,6 +16,7 @@ import com.example.gra.R;
 
 public class gameOnPhone extends Fragment {
 
+    Button buttonNext;
     Button button31;
     Button button32;
     Button button33;
@@ -42,18 +43,36 @@ public class gameOnPhone extends Fragment {
         gameTerminate();
     }
 
+    public void disableButtons(){
+        button31.setEnabled(false);
+        button32.setEnabled(false);
+        button33.setEnabled(false);
+        button34.setEnabled(false);
+        button35.setEnabled(false);
+        button36.setEnabled(false);
+        button37.setEnabled(false);
+        button38.setEnabled(false);
+        button39.setEnabled(false);
+        buttonNext.setEnabled(true);
+    }
+
     public void gameTerminate(){
         if((matrix[0][0]=="X" && matrix[0][1]=="X" && matrix[0][2]=="X")||(matrix[1][0]=="X" && matrix[1][1]=="X" && matrix[1][2]=="X")||(matrix[2][0]=="X" && matrix[2][1]=="X" && matrix[2][2]=="X")||(matrix[0][0]=="X" && matrix[1][0]=="X" && matrix[2][0]=="X")||(matrix[0][1]=="X" && matrix[1][1]=="X" && matrix[2][1]=="X")||(matrix[0][2]=="X" && matrix[1][2]=="X" && matrix[2][2]=="X")||(matrix[0][0]=="X" && matrix[1][1]=="X" && matrix[2][2]=="X")||(matrix[0][2]=="X" && matrix[1][1]=="X" && matrix[2][0]=="X")) {
             Toast.makeText(getActivity(), "X wygrał", Toast.LENGTH_SHORT).show();
+            disableButtons();
         }
         else if((matrix[0][0]=="O" && matrix[0][1]=="O" && matrix[0][2]=="O")||(matrix[1][0]=="O" && matrix[1][1]=="O" && matrix[1][2]=="O")||(matrix[2][0]=="O" && matrix[2][1]=="O" && matrix[2][2]=="O")||(matrix[0][0]=="O" && matrix[1][0]=="O" && matrix[2][0]=="O")||(matrix[0][1]=="O" && matrix[1][1]=="O" && matrix[2][1]=="O")||(matrix[0][2]=="O" && matrix[1][2]=="O" && matrix[2][2]=="O")||(matrix[0][0]=="O" && matrix[1][1]=="O" && matrix[2][2]=="O")||(matrix[0][2]=="O" && matrix[1][1]=="O" && matrix[2][0]=="O")) {
             Toast.makeText(getContext(), "O wygrał", Toast.LENGTH_SHORT).show();
+            disableButtons();
         }
-
+        else if(matrix[0][0]!=null && matrix[0][1]!=null && matrix[0][2]!=null && matrix[1][0]!=null && matrix[1][1]!=null && matrix[1][2]!=null && matrix[2][0]!=null && matrix[2][1]!=null && matrix[2][2]!=null){
+            Toast.makeText(getContext(), "remis", Toast.LENGTH_SHORT).show();
+            buttonNext.setEnabled(true);
+        }
     }
 
     public gameOnPhone() {
-
+        //very important
     }
 
     public static gameOnPhone newInstance(String param1, String param2) {
@@ -82,7 +101,7 @@ public class gameOnPhone extends Fragment {
         button38 = getActivity().findViewById(R.id.button38);
         button39 = getActivity().findViewById(R.id.button39);
 
-        //public void
+        buttonNext = getActivity().findViewById(R.id.buttonNext);
 
         button31.setOnClickListener(view31 -> {
             matrix[0][0] = xTurn ? "X" : "O";

@@ -105,9 +105,10 @@
         app:layout_constraintVertical_bias="0.143" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonNext"
         android:layout_width="130dp"
         android:layout_height="92dp"
+        android:enabled="false"
         android:text="Kolejna gra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
