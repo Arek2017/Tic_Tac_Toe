@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gra.R;
@@ -26,6 +27,8 @@ public class gameOnPhone extends Fragment {
     Button button37;
     Button button38;
     Button button39;
+    TextView oWinsInSession;
+    TextView xWinsInSession;
 
     boolean xTurn = true;
     String[][] matrix = new String[3][3];
@@ -60,10 +63,14 @@ public class gameOnPhone extends Fragment {
         if((matrix[0][0]=="X" && matrix[0][1]=="X" && matrix[0][2]=="X")||(matrix[1][0]=="X" && matrix[1][1]=="X" && matrix[1][2]=="X")||(matrix[2][0]=="X" && matrix[2][1]=="X" && matrix[2][2]=="X")||(matrix[0][0]=="X" && matrix[1][0]=="X" && matrix[2][0]=="X")||(matrix[0][1]=="X" && matrix[1][1]=="X" && matrix[2][1]=="X")||(matrix[0][2]=="X" && matrix[1][2]=="X" && matrix[2][2]=="X")||(matrix[0][0]=="X" && matrix[1][1]=="X" && matrix[2][2]=="X")||(matrix[0][2]=="X" && matrix[1][1]=="X" && matrix[2][0]=="X")) {
             Toast.makeText(getActivity(), "X wygrał", Toast.LENGTH_SHORT).show();
             disableButtons();
+            int xWinsNow = Integer.parseInt(xWinsInSession.getText().toString());
+            xWinsInSession.setText(String.valueOf(xWinsNow+1));
         }
         else if((matrix[0][0]=="O" && matrix[0][1]=="O" && matrix[0][2]=="O")||(matrix[1][0]=="O" && matrix[1][1]=="O" && matrix[1][2]=="O")||(matrix[2][0]=="O" && matrix[2][1]=="O" && matrix[2][2]=="O")||(matrix[0][0]=="O" && matrix[1][0]=="O" && matrix[2][0]=="O")||(matrix[0][1]=="O" && matrix[1][1]=="O" && matrix[2][1]=="O")||(matrix[0][2]=="O" && matrix[1][2]=="O" && matrix[2][2]=="O")||(matrix[0][0]=="O" && matrix[1][1]=="O" && matrix[2][2]=="O")||(matrix[0][2]=="O" && matrix[1][1]=="O" && matrix[2][0]=="O")) {
             Toast.makeText(getContext(), "O wygrał", Toast.LENGTH_SHORT).show();
             disableButtons();
+            int oWinsNow = Integer.parseInt(oWinsInSession.getText().toString());
+            oWinsInSession.setText(String.valueOf(oWinsNow+1));
         }
         else if(matrix[0][0]!=null && matrix[0][1]!=null && matrix[0][2]!=null && matrix[1][0]!=null && matrix[1][1]!=null && matrix[1][2]!=null && matrix[2][0]!=null && matrix[2][1]!=null && matrix[2][2]!=null){
             Toast.makeText(getContext(), "remis", Toast.LENGTH_SHORT).show();
@@ -100,8 +107,12 @@ public class gameOnPhone extends Fragment {
         button37 = getActivity().findViewById(R.id.button37);
         button38 = getActivity().findViewById(R.id.button38);
         button39 = getActivity().findViewById(R.id.button39);
+        button39 = getActivity().findViewById(R.id.button39);
 
         buttonNext = getActivity().findViewById(R.id.buttonNext);
+
+        oWinsInSession = getActivity().findViewById(R.id.oWinsInSession);
+        xWinsInSession = getActivity().findViewById(R.id.xWinsInSession);
 
         button31.setOnClickListener(view31 -> {
             matrix[0][0] = xTurn ? "X" : "O";

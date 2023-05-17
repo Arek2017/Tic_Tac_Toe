@@ -81,7 +81,7 @@
         app:layout_constraintVertical_bias="0.143" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/oWinsInSession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -93,7 +93,7 @@
         app:layout_constraintVertical_bias="0.143" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/xWinsInSession"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"

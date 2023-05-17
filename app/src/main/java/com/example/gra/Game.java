@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,11 +18,11 @@ public class Game extends AppCompatActivity {
     int selectedMode;
 
     TextView textView3;
-    TextView textView7;
-    TextView textView8;
+
     Button buttonNext;
     Button button6;
     Button button31, button32, button33, button34, button35, button36, button37, button38, button39;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +31,6 @@ public class Game extends AppCompatActivity {
         buttonNext = findViewById(R.id.buttonNext);
         button6 = findViewById(R.id.button6);
         textView3 = findViewById(R.id.textView3);
-        textView7 = findViewById(R.id.textView7);
-        textView8 = findViewById(R.id.textView8);
 
 
         selectedMode = (int)getIntent().getSerializableExtra("selectedMode");
@@ -53,6 +50,7 @@ public class Game extends AppCompatActivity {
 
         buttonNext.setOnClickListener(v -> {
             setButtonsGone();
+            buttonNext.setEnabled(false);
 
             //button31.setEnabled(true); button32.setEnabled(true); button33.setEnabled(true); button34.setEnabled(true); button35.setEnabled(true); button36.setEnabled(true); button37.setEnabled(true); button38.setEnabled(true); button39.setEnabled(true);
             //button31.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button32.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button33.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button34.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button35.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button36.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button37.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button38.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button39.setBackground(getResources().getDrawable(R.drawable.empty_shape));
