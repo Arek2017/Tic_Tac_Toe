@@ -32,7 +32,7 @@ public class GameMode extends AppCompatActivity {
                     .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            int AIstarter = 0;
+                            boolean AIstarter = false;
                             intent.putExtra("AIstarter", (Serializable) AIstarter);
                             int selectedMode = 1;
                             intent.putExtra("selectedMode", (Serializable) selectedMode);
@@ -42,7 +42,7 @@ public class GameMode extends AppCompatActivity {
                     .setNegativeButton("Komputer", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            int AIstarter = 1;
+                            boolean AIstarter = true;
                             intent.putExtra("AIstarter", (Serializable) AIstarter);
                             int selectedMode = 1;
                             intent.putExtra("selectedMode", (Serializable) selectedMode);

@@ -29,10 +29,25 @@ public class gameOnPhone extends Fragment {
     Button button39;
     TextView oWinsInSession;
     TextView xWinsInSession;
+    TextView textView7;
+    int gameCount;
+
+    boolean makeMethodWhoStartsWorkOnlyOnce = false;
 
     boolean xTurn = true;
+    public void whoStarts(){
+        String numberOfGame = textView7.getText().toString();
+        int numberOfGameInt = Integer.parseInt(numberOfGame);
+        if ( numberOfGameInt%2 == 0)
+        {
+            xTurn = true;
+        }
+        else{
+            xTurn = false;
+        }
+    }
+
     String[][] matrix = new String[3][3];
-    int ys = 0;
 
     public void placeMark(Button button){
         if(xTurn == true) {
@@ -57,6 +72,10 @@ public class gameOnPhone extends Fragment {
         button38.setEnabled(false);
         button39.setEnabled(false);
         buttonNext.setEnabled(true);
+        makeMethodWhoStartsWorkOnlyOnce = false;
+
+        int thisGameCount = Integer.parseInt(textView7.getText().toString());
+        textView7.setText(String.valueOf(thisGameCount+1));
     }
 
     public void gameTerminate(){
@@ -74,7 +93,7 @@ public class gameOnPhone extends Fragment {
         }
         else if(matrix[0][0]!=null && matrix[0][1]!=null && matrix[0][2]!=null && matrix[1][0]!=null && matrix[1][1]!=null && matrix[1][2]!=null && matrix[2][0]!=null && matrix[2][1]!=null && matrix[2][2]!=null){
             Toast.makeText(getContext(), "remis", Toast.LENGTH_SHORT).show();
-            buttonNext.setEnabled(true);
+            disableButtons();
         }
     }
 
@@ -107,12 +126,18 @@ public class gameOnPhone extends Fragment {
         button37 = getActivity().findViewById(R.id.button37);
         button38 = getActivity().findViewById(R.id.button38);
         button39 = getActivity().findViewById(R.id.button39);
-        button39 = getActivity().findViewById(R.id.button39);
 
         buttonNext = getActivity().findViewById(R.id.buttonNext);
 
         oWinsInSession = getActivity().findViewById(R.id.oWinsInSession);
         xWinsInSession = getActivity().findViewById(R.id.xWinsInSession);
+        textView7 = getActivity().findViewById(R.id.textView7);
+
+        if (makeMethodWhoStartsWorkOnlyOnce == false){
+            whoStarts();
+            makeMethodWhoStartsWorkOnlyOnce = true;
+        }
+
 
         button31.setOnClickListener(view31 -> {
             matrix[0][0] = xTurn ? "X" : "O";

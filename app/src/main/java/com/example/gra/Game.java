@@ -16,6 +16,8 @@ import com.example.gra.fragments.gameOnPhone;
 public class Game extends AppCompatActivity {
 
     int selectedMode;
+    int gameCount = 0;
+    boolean AIstarter;
 
     TextView textView3;
 
@@ -32,11 +34,11 @@ public class Game extends AppCompatActivity {
         button6 = findViewById(R.id.button6);
         textView3 = findViewById(R.id.textView3);
 
-
         selectedMode = (int)getIntent().getSerializableExtra("selectedMode");
         if(selectedMode==1){
             replaceFragment(new gameAI());
             textView3.setText("Gra z komputerem");
+            AIstarter = (boolean)getIntent().getSerializableExtra("AIstarter");
         }
         else if(selectedMode==2){
             replaceFragment(new gameOnPhone());
@@ -51,6 +53,7 @@ public class Game extends AppCompatActivity {
         buttonNext.setOnClickListener(v -> {
             setButtonsGone();
             buttonNext.setEnabled(false);
+            gameCount++;
 
             //button31.setEnabled(true); button32.setEnabled(true); button33.setEnabled(true); button34.setEnabled(true); button35.setEnabled(true); button36.setEnabled(true); button37.setEnabled(true); button38.setEnabled(true); button39.setEnabled(true);
             //button31.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button32.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button33.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button34.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button35.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button36.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button37.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button38.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button39.setBackground(getResources().getDrawable(R.drawable.empty_shape));
