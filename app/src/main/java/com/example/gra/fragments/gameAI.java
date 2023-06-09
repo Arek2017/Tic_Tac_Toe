@@ -31,8 +31,28 @@ public class gameAI extends Fragment {
     Button button29;
     TextView oWinsInSession;
     TextView xWinsInSession;
+    TextView textView7;
     boolean AIstarter;
-    boolean AImove = AIstarter;
+    boolean AImove;
+    boolean AImv1 = true;
+    int j=0;
+
+    boolean makeMethodWhoStartsWorkOnlyOnce = false;
+    public void whoStarts(){
+        String numberOfGame = textView7.getText().toString();
+        int numberOfGameInt = Integer.parseInt(numberOfGame);
+        if ( numberOfGameInt%2 == 0)
+        {
+            xTurn = true;
+        }
+        else{
+            xTurn = false;
+        }
+        if(AImove==true)
+        {
+            AIturn();
+        }
+    }
     Random rand = new Random();
     int upperbound = 100;
     int int_random = rand.nextInt(upperbound);
@@ -47,9 +67,29 @@ public class gameAI extends Fragment {
         else{
             button.setBackground(getResources().getDrawable(R.drawable.circle_shape));
         }
-        xTurn = !xTurn;
         button.setEnabled(false);
         gameTerminate();
+        xTurn = !xTurn;
+        AImove = !AImove;
+        j=1;
+        AIturn();
+    }
+
+    public void AIturn(){
+        if(AImove == true)
+        {
+            matrix[1][1] = xTurn ? "X" : "O";
+            if(xTurn == true) {
+                button25.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+            }
+            else{
+                button25.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+            }
+            button25.setEnabled(false);
+
+            xTurn = !xTurn;
+            AImove = !AImove;
+        }
     }
 
     public void disableButtons(){
@@ -63,6 +103,10 @@ public class gameAI extends Fragment {
         button28.setEnabled(false);
         button29.setEnabled(false);
         buttonNext.setEnabled(true);
+        makeMethodWhoStartsWorkOnlyOnce = false;
+
+        int thisGameCount = Integer.parseInt(textView7.getText().toString());
+        textView7.setText(String.valueOf(thisGameCount+1));
     }
 
     public void gameTerminate(){
@@ -80,12 +124,12 @@ public class gameAI extends Fragment {
         }
         else if(matrix[0][0]!=null && matrix[0][1]!=null && matrix[0][2]!=null && matrix[1][0]!=null && matrix[1][1]!=null && matrix[1][2]!=null && matrix[2][0]!=null && matrix[2][1]!=null && matrix[2][2]!=null){
             Toast.makeText(getContext(), "remis", Toast.LENGTH_SHORT).show();
-            buttonNext.setEnabled(true);
+            disableButtons();
         }
     }
 
     public gameAI() {
-
+        //very important!
     }
 
     public static gameAI newInstance(String param1, String param2) {
@@ -104,6 +148,13 @@ public class gameAI extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle bundle = this.getArguments();
+        AIstarter = bundle.getBoolean("AIstarter");
+        if(AImv1==true){
+            AImove = AIstarter;
+            AImv1=false;
+        }
+
         button21 = getActivity().findViewById(R.id.button21);
         button22 = getActivity().findViewById(R.id.button22);
         button23 = getActivity().findViewById(R.id.button23);
@@ -118,51 +169,59 @@ public class gameAI extends Fragment {
 
         oWinsInSession = getActivity().findViewById(R.id.oWinsInSession);
         xWinsInSession = getActivity().findViewById(R.id.xWinsInSession);
+        textView7 = getActivity().findViewById(R.id.textView7);
 
-        button21.setOnClickListener(view21 -> {
-            matrix[0][0] = xTurn ? "X" : "O";
-            placeMark(button21);
-        });
+        if (!makeMethodWhoStartsWorkOnlyOnce){
+            whoStarts();
+            makeMethodWhoStartsWorkOnlyOnce = true;
+        }
 
-        button22.setOnClickListener(view22 -> {
-            matrix[0][1] = xTurn ? "X" : "O";
-            placeMark(button22);
-        });
+        if(AImove==false){
+            button21.setOnClickListener(view21 -> {
+                matrix[0][0] = xTurn ? "X" : "O";
+                placeMark(button21);
+            });
 
-        button23.setOnClickListener(view23 -> {
-            matrix[0][2] = xTurn ? "X" : "O";
-            placeMark(button23);
-        });
+            button22.setOnClickListener(view22 -> {
+                matrix[0][1] = xTurn ? "X" : "O";
+                placeMark(button22);
+            });
 
-        button24.setOnClickListener(view24 -> {
-            matrix[1][0] = xTurn ? "X" : "O";
-            placeMark(button24);
-        });
+            button23.setOnClickListener(view23 -> {
+                matrix[0][2] = xTurn ? "X" : "O";
+                placeMark(button23);
+            });
 
-        button25.setOnClickListener(view25 -> {
-            matrix[1][1] = xTurn ? "X" : "O";
-            placeMark(button25);
-        });
+            button24.setOnClickListener(view24 -> {
+                matrix[1][0] = xTurn ? "X" : "O";
+                placeMark(button24);
+            });
 
-        button26.setOnClickListener(view26 -> {
-            matrix[1][2] = xTurn ? "X" : "O";
-            placeMark(button26);
-        });
+            button25.setOnClickListener(view25 -> {
+                matrix[1][1] = xTurn ? "X" : "O";
+                placeMark(button25);
+            });
 
-        button27.setOnClickListener(view27 -> {
-            matrix[2][0] = xTurn ? "X" : "O";
-            placeMark(button27);
-        });
+            button26.setOnClickListener(view26 -> {
+                matrix[1][2] = xTurn ? "X" : "O";
+                placeMark(button26);
+            });
 
-        button28.setOnClickListener(view28 -> {
-            matrix[2][1] = xTurn ? "X" : "O";
-            placeMark(button28);
-        });
+            button27.setOnClickListener(view27 -> {
+                matrix[2][0] = xTurn ? "X" : "O";
+                placeMark(button27);
+            });
 
-        button29.setOnClickListener(view29 -> {
-            matrix[2][2] = xTurn ? "X" : "O";
-            placeMark(button29);
-        });
+            button28.setOnClickListener(view28 -> {
+                matrix[2][1] = xTurn ? "X" : "O";
+                placeMark(button28);
+            });
+
+            button29.setOnClickListener(view29 -> {
+                matrix[2][2] = xTurn ? "X" : "O";
+                placeMark(button29);
+            });
+        }
     }
 
     @Override

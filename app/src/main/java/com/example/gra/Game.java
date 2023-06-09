@@ -23,7 +23,6 @@ public class Game extends AppCompatActivity {
 
     Button buttonNext;
     Button button6;
-    Button button31, button32, button33, button34, button35, button36, button37, button38, button39;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +35,9 @@ public class Game extends AppCompatActivity {
 
         selectedMode = (int)getIntent().getSerializableExtra("selectedMode");
         if(selectedMode==1){
-            replaceFragment(new gameAI());
-            textView3.setText("Gra z komputerem");
             AIstarter = (boolean)getIntent().getSerializableExtra("AIstarter");
+            replaceFragment2(new gameAI(), AIstarter);
+            textView3.setText("Gra z komputerem");
         }
         else if(selectedMode==2){
             replaceFragment(new gameOnPhone());
@@ -54,42 +53,27 @@ public class Game extends AppCompatActivity {
             setButtonsGone();
             buttonNext.setEnabled(false);
             gameCount++;
-
-            //button31.setEnabled(true); button32.setEnabled(true); button33.setEnabled(true); button34.setEnabled(true); button35.setEnabled(true); button36.setEnabled(true); button37.setEnabled(true); button38.setEnabled(true); button39.setEnabled(true);
-            //button31.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button32.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button33.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button34.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button35.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button36.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button37.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button38.setBackground(getResources().getDrawable(R.drawable.empty_shape)); button39.setBackground(getResources().getDrawable(R.drawable.empty_shape));
+            AIstarter = !AIstarter;
         });
     }
 
     public void setButtonsGone() {
-        /*Fragment fragmentTwoPlayers = getSupportFragmentManager().findFragmentByTag("mainFragment");
-        button31 = fragmentTwoPlayers.getView().findViewById(R.id.button31);
-        button32 = fragmentTwoPlayers.getView().findViewById(R.id.button32);
-        button33 = fragmentTwoPlayers.getView().findViewById(R.id.button33);
-        button34 = fragmentTwoPlayers.getView().findViewById(R.id.button34);
-        button35 = fragmentTwoPlayers.getView().findViewById(R.id.button35);
-        button36 = fragmentTwoPlayers.getView().findViewById(R.id.button36);
-        button37 = fragmentTwoPlayers.getView().findViewById(R.id.button37);
-        button38 = fragmentTwoPlayers.getView().findViewById(R.id.button38);
-        button39 = fragmentTwoPlayers.getView().findViewById(R.id.button39);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                button31.setBackgroundResource(R.drawable.empty_shape);
-                button32.setBackgroundResource(R.drawable.empty_shape);
-                button33.setBackgroundResource(R.drawable.empty_shape);
-                button34.setBackgroundResource(R.drawable.empty_shape);
-                button35.setBackgroundResource(R.drawable.empty_shape);
-                button36.setBackgroundResource(R.drawable.empty_shape);
-                button37.setBackgroundResource(R.drawable.empty_shape);
-                button38.setBackgroundResource(R.drawable.empty_shape);
-                button39.setBackgroundResource(R.drawable.empty_shape);
-            }
-        });*/
+
         fragmentClear();
         replaceFragment(new gameOnPhone());
     }
 
     private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment, "main");
+        fragmentTransaction.commit();
+    }
+
+    private void replaceFragment2(Fragment fragment, boolean temp) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("AIstarter", temp);
+        fragment.setArguments(bundle);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout, fragment, "main");

@@ -34,6 +34,9 @@ public class Login extends AppCompatActivity {
         buttonLogin = findViewById(R.id.btnLogin);
         textViewSignUp = findViewById(R.id.signUpText);
 
+        if(SharedPreferencesManager.getInstance(getApplicationContext()).getStatus()==true){
+            goToMainActivity();
+        }
         textViewSignUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -62,35 +65,19 @@ public class Login extends AppCompatActivity {
                             data[0] = username;
                             data[1] = password;
 
-                            try {
-                                for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-                                    NetworkInterface intf = en.nextElement();
-                                    for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
-                                        InetAddress inetAddress = enumIpAddr.nextElement();
-                                        if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
-                                            String ipAddress = inetAddress.getHostAddress();
-                                            // tutaj możesz wykorzystać pobrany adres IP
-                                            Log.d("IP Address", "My IP Address: " + ipAddress);
-                                        }
-                                    }
-                                }
-                            } catch (SocketException ex) {
-                                ex.printStackTrace();
-                            }
-
                             PutData putData = new PutData("http://192.168.0.157/TTT/login.php", "POST", field, data);
-                            if (putData.startPut()) {
-                                if (putData.onComplete()) {
-                                    String result = putData.getResult();
-                                    if(result.equals("Login Success")){
-                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(getApplicationContext(), MainPage.class);
-                                        startActivity(intent);
-                                        finish();
-                                    }
-                                    else{
-                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                                    }
+                            if (putData.startPut() && putData.onComplete()) {
+                                String result = putData.getResult();
+                                if(result.equals("Login Success")){
+                                    SharedPreferencesManager.getInstance(getApplicationContext()).setStatus(true);
+                                    SharedPreferencesManager.getInstance(getApplicationContext()).setUsername(data[0]);
+                                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), MainPage.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                                else{
+                                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -101,5 +88,9 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+    private void goToMainActivity() {
+        Intent i = new Intent(this,MainPage.class);
+        startActivity(i);
     }
 }

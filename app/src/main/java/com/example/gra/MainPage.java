@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainPage extends AppCompatActivity {
 
@@ -34,6 +35,26 @@ public class MainPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainPage.this, Statistics.class);
                 startActivity(intent);
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferencesManager.getInstance(getApplicationContext()).logOut();
+                Toast.makeText(getBaseContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainPage.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedPreferencesManager.getInstance(getApplicationContext()).logOut();
+                Toast.makeText(getBaseContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }

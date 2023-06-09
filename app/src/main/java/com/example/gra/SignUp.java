@@ -14,6 +14,9 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputEditText;
 import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class SignUp extends AppCompatActivity {
 
     TextInputEditText textInputEditTextUsername, textInputEditTextPassword;
@@ -47,7 +50,7 @@ public class SignUp extends AppCompatActivity {
                 username = String.valueOf(textInputEditTextUsername.getText());
                 password = String.valueOf(textInputEditTextPassword.getText());
 
-                if (!username.equals("") && !password.equals("")) {
+                if (CheckAllFields()==true) {
                     progressBar.setVisibility(View.VISIBLE);
                     Handler handler = new Handler();
                     handler.post(new Runnable() {
@@ -64,18 +67,16 @@ public class SignUp extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Wrong IP Address", Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                if (putData.startPut()) {
-                                    if (putData.onComplete()) {
-                                        progressBar.setVisibility(View.GONE);
-                                        String result = putData.getResult();
-                                        if (result.equals("Sign Up Success")) {
-                                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(getApplicationContext(), Login.class);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
-                                        }
+                                if (putData.startPut() && putData.onComplete()) {
+                                    progressBar.setVisibility(View.GONE);
+                                    String result = putData.getResult();
+                                    if (result.equals("Sign Up Success")) {
+                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
@@ -83,9 +84,41 @@ public class SignUp extends AppCompatActivity {
                     });
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "All fields are required", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Błędne dane rejestracji", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+    private boolean CheckAllFields() {
+        if (textInputEditTextUsername.length() == 0) {
+            textInputEditTextUsername.setError("This field is required");
+            return false;
+        }
+
+        if (textInputEditTextPassword.length() == 0) {
+            textInputEditTextPassword.setError("This field is required");
+            return false;
+        }
+
+        if (textInputEditTextUsername.length() < 5 && textInputEditTextUsername.length() > 25) {
+            textInputEditTextUsername.setError("Must be between 5 and 25 characters long");
+            return false;
+        }
+
+        if (textInputEditTextPassword.length() < 8 && textInputEditTextPassword.length() > 25) {
+            textInputEditTextPassword.setError("Must be between 8 and 25 characters long");
+            return false;
+        }
+
+        String regex = "[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]+";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(String.valueOf(textInputEditTextUsername.getText()));
+
+        if (!matcher.matches()) {
+            textInputEditTextUsername.setError("Only uppercase and lowercase letters, Polish characters and numbers allowed");
+            return false;
+        }
+
+        return true;
     }
 }

@@ -30,7 +30,6 @@ public class gameOnPhone extends Fragment {
     TextView oWinsInSession;
     TextView xWinsInSession;
     TextView textView7;
-    int gameCount;
 
     boolean makeMethodWhoStartsWorkOnlyOnce = false;
 
