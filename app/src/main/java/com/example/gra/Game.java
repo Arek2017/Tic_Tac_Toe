@@ -50,17 +50,28 @@ public class Game extends AppCompatActivity {
         });
 
         buttonNext.setOnClickListener(v -> {
-            setButtonsGone();
+            AIstarter = !AIstarter;
+            if(selectedMode==1){
+                setButtonsGone1();
+            }
+            else{
+                setButtonsGone2();
+            }
             buttonNext.setEnabled(false);
             gameCount++;
-            AIstarter = !AIstarter;
         });
     }
 
-    public void setButtonsGone() {
+    public void setButtonsGone2() {
 
         fragmentClear();
         replaceFragment(new gameOnPhone());
+    }
+
+    public void setButtonsGone1() {
+
+        fragmentClear();
+        replaceFragment2(new gameAI(), AIstarter);
     }
 
     private void replaceFragment(Fragment fragment) {
