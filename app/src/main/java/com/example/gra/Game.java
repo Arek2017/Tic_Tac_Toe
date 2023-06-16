@@ -18,7 +18,7 @@ public class Game extends AppCompatActivity {
     int selectedMode;
     int gameCount = 0;
     boolean AIstarter;
-
+    //boolean XmarkIsAI;
     TextView textView3;
 
     Button buttonNext;
@@ -36,6 +36,7 @@ public class Game extends AppCompatActivity {
         selectedMode = (int)getIntent().getSerializableExtra("selectedMode");
         if(selectedMode==1){
             AIstarter = (boolean)getIntent().getSerializableExtra("AIstarter");
+            //XmarkIsAI = AIstarter;
             replaceFragment2(new gameAI(), AIstarter);
             textView3.setText("Gra z komputerem");
         }
@@ -47,6 +48,7 @@ public class Game extends AppCompatActivity {
         button6.setOnClickListener(v -> {
             Intent intent = new Intent(Game.this, MainPage.class);
             startActivity(intent);
+            finish();
         });
 
         buttonNext.setOnClickListener(v -> {

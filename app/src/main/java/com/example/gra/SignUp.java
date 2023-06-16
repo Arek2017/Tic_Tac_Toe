@@ -62,7 +62,7 @@ public class SignUp extends AppCompatActivity {
                             String[] data = new String[2];
                             data[0] = username;
                             data[1] = password;
-                            PutData putData = new PutData("http://192.168.0.157/TTT/signup.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.0.158/TTT/signup.php", "POST", field, data);
                             if(putData == null){
                                 Toast.makeText(getApplicationContext(), "Wrong IP Address", Toast.LENGTH_SHORT).show();
                             }
@@ -70,8 +70,8 @@ public class SignUp extends AppCompatActivity {
                                 if (putData.startPut() && putData.onComplete()) {
                                     progressBar.setVisibility(View.GONE);
                                     String result = putData.getResult();
-                                    if (result.equals("Sign Up Success")) {
-                                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                    if (result.matches("[0-9]+")) {
+                                        addStatsTableUser(Integer.parseInt(result));
                                         Intent intent = new Intent(getApplicationContext(), Login.class);
                                         startActivity(intent);
                                         finish();
@@ -89,6 +89,29 @@ public class SignUp extends AppCompatActivity {
             }
         });
     }
+    private void addStatsTableUser(int idUser){
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                String[] field = new String[1];
+                field[0] = "user_id";
+                String[] data = new String[1];
+                data[0] = String.valueOf(idUser);
+                PutData putData = new PutData("http://192.168.0.158/TTT/addstatstouser.php", "POST", field, data);
+                if(putData == null){
+                    Toast.makeText(getApplicationContext(), "Wrong IP Address", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    if (putData.startPut() && putData.onComplete()) {
+                        String result = putData.getResult();
+                        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+    }
+
     private boolean CheckAllFields() {
         if (textInputEditTextUsername.length() == 0) {
             textInputEditTextUsername.setError("This field is required");

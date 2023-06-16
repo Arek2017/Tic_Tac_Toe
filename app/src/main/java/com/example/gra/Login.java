@@ -65,13 +65,14 @@ public class Login extends AppCompatActivity {
                             data[0] = username;
                             data[1] = password;
 
-                            PutData putData = new PutData("http://192.168.0.157/TTT/login.php", "POST", field, data);
+                            PutData putData = new PutData("http://192.168.0.158/TTT/login.php", "POST", field, data);
                             if (putData.startPut() && putData.onComplete()) {
                                 String result = putData.getResult();
-                                if(result.equals("Login Success")){
+                                if(result.matches("[0-9]+")){
                                     SharedPreferencesManager.getInstance(getApplicationContext()).setStatus(true);
                                     SharedPreferencesManager.getInstance(getApplicationContext()).setUsername(data[0]);
-                                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+                                    SharedPreferencesManager.getInstance(getApplicationContext()).setUserID(Integer.parseInt(result));
+                                    Toast.makeText(getApplicationContext(), "Poprawnie zalogowano", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainPage.class);
                                     startActivity(intent);
                                     finish();

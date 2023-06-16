@@ -1,11 +1,13 @@
 package com.example.gra.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.gra.Login;
 import com.example.gra.R;
+import com.example.gra.SharedPreferencesManager;
+import com.vishnusivadas.advanced_httpurlconnection.PutData;
 
 import java.util.Random;
 
@@ -32,11 +37,15 @@ public class gameAI extends Fragment {
     TextView oWinsInSession;
     TextView xWinsInSession;
     TextView textView7;
+    TextView textView8;
     boolean AIstarter;
     boolean AImove;
     boolean AImv1 = true;
     int ys;
     int tys;
+    int whoWonThisRound;
+    boolean XmarkIsAI;
+    String WhoPlaysX;
     boolean makeMethodWhoStartsWorkOnlyOnce = false;
     public void whoStarts(){
         String numberOfGame = textView7.getText().toString();
@@ -79,7 +88,7 @@ public class gameAI extends Fragment {
         Random rand = new Random();
         int upperbound = 100;
         int int_random = rand.nextInt(upperbound);
-        if(int_random<1){
+        if(int_random<0){
             matrix[1][2] = xTurn ? "X" : "O";
             if(xTurn == true) {
                 button26.setBackground(getResources().getDrawable(R.drawable.cross_shape));
@@ -234,23 +243,39 @@ public class gameAI extends Fragment {
 
         int thisGameCount = Integer.parseInt(textView7.getText().toString());
         textView7.setText(String.valueOf(thisGameCount+1));
+        addStats();
     }
 
     public void gameTerminate(){
         if((matrix[0][0]=="X" && matrix[0][1]=="X" && matrix[0][2]=="X")||(matrix[1][0]=="X" && matrix[1][1]=="X" && matrix[1][2]=="X")||(matrix[2][0]=="X" && matrix[2][1]=="X" && matrix[2][2]=="X")||(matrix[0][0]=="X" && matrix[1][0]=="X" && matrix[2][0]=="X")||(matrix[0][1]=="X" && matrix[1][1]=="X" && matrix[2][1]=="X")||(matrix[0][2]=="X" && matrix[1][2]=="X" && matrix[2][2]=="X")||(matrix[0][0]=="X" && matrix[1][1]=="X" && matrix[2][2]=="X")||(matrix[0][2]=="X" && matrix[1][1]=="X" && matrix[2][0]=="X")) {
             Toast.makeText(getActivity(), "X wygrał", Toast.LENGTH_SHORT).show();
+            if(XmarkIsAI==true){
+                whoWonThisRound=1;
+            }
+            else{
+                whoWonThisRound=2;
+            }
             disableButtons();
             int xWinsNow = Integer.parseInt(xWinsInSession.getText().toString());
             xWinsInSession.setText(String.valueOf(xWinsNow+1));
+
+
         }
         else if((matrix[0][0]=="O" && matrix[0][1]=="O" && matrix[0][2]=="O")||(matrix[1][0]=="O" && matrix[1][1]=="O" && matrix[1][2]=="O")||(matrix[2][0]=="O" && matrix[2][1]=="O" && matrix[2][2]=="O")||(matrix[0][0]=="O" && matrix[1][0]=="O" && matrix[2][0]=="O")||(matrix[0][1]=="O" && matrix[1][1]=="O" && matrix[2][1]=="O")||(matrix[0][2]=="O" && matrix[1][2]=="O" && matrix[2][2]=="O")||(matrix[0][0]=="O" && matrix[1][1]=="O" && matrix[2][2]=="O")||(matrix[0][2]=="O" && matrix[1][1]=="O" && matrix[2][0]=="O")) {
             Toast.makeText(getContext(), "O wygrał", Toast.LENGTH_SHORT).show();
+            if(XmarkIsAI==true){
+                whoWonThisRound=2;
+            }
+            else{
+                whoWonThisRound=1;
+            }
             disableButtons();
             int oWinsNow = Integer.parseInt(oWinsInSession.getText().toString());
             oWinsInSession.setText(String.valueOf(oWinsNow+1));
         }
         else if(matrix[0][0]!=null && matrix[0][1]!=null && matrix[0][2]!=null && matrix[1][0]!=null && matrix[1][1]!=null && matrix[1][2]!=null && matrix[2][0]!=null && matrix[2][1]!=null && matrix[2][2]!=null){
             Toast.makeText(getContext(), "remis", Toast.LENGTH_SHORT).show();
+            whoWonThisRound=3;
             disableButtons();
         }
     }
@@ -276,6 +301,7 @@ public class gameAI extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textView7 = getActivity().findViewById(R.id.textView7);
+        textView8 = getActivity().findViewById(R.id.textView8);
         ys=Integer.parseInt(textView7.getText().toString());
         Bundle bundle = this.getArguments();
 
@@ -284,7 +310,23 @@ public class gameAI extends Fragment {
         if(AImv1==true){
             AImove = AIstarter;
             AImv1=false;
+            if(ys%2==0){
+                if(AImove==true){
+                    XmarkIsAI=true;
+                    WhoPlaysX = "X";
+                    textView8.setText(WhoPlaysX);
+                }
+                else{
+                    XmarkIsAI=false;
+                    WhoPlaysX = "O";
+                    textView8.setText(WhoPlaysX);
+                }
+            }
         }
+        if(textView8.getText()=="X")
+            XmarkIsAI=true;
+        else
+            XmarkIsAI=false;
 
         button21 = getActivity().findViewById(R.id.button21);
         button22 = getActivity().findViewById(R.id.button22);
@@ -358,6 +400,28 @@ public class gameAI extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_game_a_i, container, false);
+    }
+
+    public void addStats(){
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                String[] field = new String[2];
+                field[0] = "user_id";
+                field[1] = "whoWonThisRound";
+                String[] data = new String[2];
+                data[0] = String.valueOf(SharedPreferencesManager.getInstance(getActivity()).getUserID());
+                data[1] = Integer.toString(whoWonThisRound);
+                PutData putData = new PutData("http://192.168.0.158/TTT/addtostats.php", "POST", field, data);
+                if (putData.startPut() && putData.onComplete()) {
+
+                    }
+                if(putData == null){
+                    Toast.makeText(getActivity().getApplicationContext(), "Wrong IP Address", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
 

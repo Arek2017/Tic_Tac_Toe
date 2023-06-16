@@ -37,6 +37,7 @@ public class GameMode extends AppCompatActivity {
                             int selectedMode = 1;
                             intent.putExtra("selectedMode", (Serializable) selectedMode);
                             startActivity(intent);
+                            finish();
                         }
                     })
                     .setNegativeButton("Komputer", new DialogInterface.OnClickListener() {
@@ -47,6 +48,7 @@ public class GameMode extends AppCompatActivity {
                             int selectedMode = 1;
                             intent.putExtra("selectedMode", (Serializable) selectedMode);
                             startActivity(intent);
+                            finish();
                         }
                     })
                     .show();
@@ -57,11 +59,13 @@ public class GameMode extends AppCompatActivity {
             int selectedMode = 2;
             intent.putExtra("selectedMode", (Serializable) selectedMode);
             startActivity(intent);
+            finish();
         });
 
         button13.setOnClickListener(v -> {
             Intent intent = new Intent(GameMode.this, MainPage.class);
             startActivity(intent);
+            finish();
         });
     }
 }
