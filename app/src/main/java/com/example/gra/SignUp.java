@@ -62,7 +62,7 @@ public class SignUp extends AppCompatActivity {
                             String[] data = new String[2];
                             data[0] = username;
                             data[1] = password;
-                            PutData putData = new PutData("http://192.168.0.158/TTT/signup.php", "POST", field, data);
+                            PutData putData = new PutData("http://arek2017.ct8.pl/TTT/signup.php", "POST", field, data);
                             if(putData == null){
                                 Toast.makeText(getApplicationContext(), "Wrong IP Address", Toast.LENGTH_SHORT).show();
                             }

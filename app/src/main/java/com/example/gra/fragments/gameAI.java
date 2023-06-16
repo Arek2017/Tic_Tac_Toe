@@ -413,7 +413,7 @@ public class gameAI extends Fragment {
                 String[] data = new String[2];
                 data[0] = String.valueOf(SharedPreferencesManager.getInstance(getActivity()).getUserID());
                 data[1] = Integer.toString(whoWonThisRound);
-                PutData putData = new PutData("http://192.168.0.158/TTT/addtostats.php", "POST", field, data);
+                PutData putData = new PutData("http://arek2017.ct8.pl/TTT/addtostats.php", "POST", field, data);
                 if (putData.startPut() && putData.onComplete()) {
 
                     }

@@ -65,7 +65,7 @@ public class Login extends AppCompatActivity {
                             data[0] = username;
                             data[1] = password;
 
-                            PutData putData = new PutData("http://192.168.0.158/TTT/login.php", "POST", field, data);
+                            PutData putData = new PutData("http://arek2017.ct8.pl/TTT/login.php", "POST", field, data);
                             if (putData.startPut() && putData.onComplete()) {
                                 String result = putData.getResult();
                                 if(result.matches("[0-9]+")){

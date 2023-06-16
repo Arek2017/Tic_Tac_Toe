@@ -75,7 +75,7 @@ public class MainPage extends AppCompatActivity {
                 field[0] = "id";
                 String[] data = new String[1];
                 data[0] = String.valueOf(SharedPreferencesManager.getInstance(getApplicationContext()).getUserID());
-                PutData putData = new PutData("http://192.168.0.158/TTT/downloadname.php", "POST", field, data);
+                PutData putData = new PutData("http://arek2017.ct8.pl/TTT/downloadname.php", "POST", field, data);
                 if (putData == null) {
                     Toast.makeText(getApplicationContext(), "Wrong IP Address", Toast.LENGTH_SHORT).show();
                 }
