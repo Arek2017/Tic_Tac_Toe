@@ -84,147 +84,128 @@ public class gameAI extends Fragment {
     }
 
     public void AIturn(){
-
-        Random rand = new Random();
-        int upperbound = 100;
-        int int_random = rand.nextInt(upperbound);
-        if(int_random<0){
-            matrix[1][2] = xTurn ? "X" : "O";
-            if(xTurn == true) {
-                button26.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+        int r = 0;
+        while(r==0) {
+            Random rand2 = new Random();
+            int upperbound2 = 9;
+            int int_random2 = rand2.nextInt(upperbound2);
+            int swicz = int_random2 + 1;
+            switch (swicz) {
+                case 1:
+                    if (matrix[0][0] == null) {
+                        matrix[0][0] = xTurn ? "X" : "O";
+                        if (xTurn == true) {
+                            button21.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+                        } else {
+                            button21.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+                        }
+                        button21.setEnabled(false);
+                        r++;
+                    }
+                    break;
+                case 2:
+                    if (matrix[0][1] == null) {
+                        matrix[0][1] = xTurn ? "X" : "O";
+                        if (xTurn == true) {
+                            button22.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+                        } else {
+                            button22.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+                        }
+                        button22.setEnabled(false);
+                        r++;
+                    }
+                    break;
+                case 3:
+                    if (matrix[0][2] == null) {
+                        matrix[0][2] = xTurn ? "X" : "O";
+                        if (xTurn == true) {
+                            button23.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+                        } else {
+                            button23.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+                        }
+                        button23.setEnabled(false);
+                        r++;
+                    }
+                    break;
+                case 4:
+                    if (matrix[1][0] == null) {
+                        matrix[1][0] = xTurn ? "X" : "O";
+                        if (xTurn == true) {
+                            button24.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+                        } else {
+                            button24.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+                        }
+                        button24.setEnabled(false);
+                        r++;
+                    }
+                    break;
+                case 5:
+                    if (matrix[1][1] == null) {
+                        matrix[1][1] = xTurn ? "X" : "O";
+                        if (xTurn == true) {
+                            button25.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+                        } else {
+                            button25.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+                        }
+                        button25.setEnabled(false);
+                        r++;
+                    }
+                    break;
+                case 6:
+                    if (matrix[1][2] == null) {
+                        matrix[1][2] = xTurn ? "X" : "O";
+                        if (xTurn == true) {
+                            button26.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+                        } else {
+                            button26.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+                        }
+                        button26.setEnabled(false);
+                        r++;
+                    }
+                    break;
+                case 7:
+                    if (matrix[2][0] == null) {
+                        matrix[2][0] = xTurn ? "X" : "O";
+                        if (xTurn == true) {
+                            button27.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+                        } else {
+                            button27.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+                        }
+                        button27.setEnabled(false);
+                        r++;
+                    }
+                    break;
+                case 8:
+                    if (matrix[2][1] == null) {
+                        matrix[2][1] = xTurn ? "X" : "O";
+                        if (xTurn == true) {
+                            button28.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+                        } else {
+                            button28.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+                        }
+                        button28.setEnabled(false);
+                        r++;
+                    }
+                    break;
+                case 9:
+                    if (matrix[2][2] == null) {
+                        matrix[2][2] = xTurn ? "X" : "O";
+                        if (xTurn == true) {
+                            button29.setBackground(getResources().getDrawable(R.drawable.cross_shape));
+                        } else {
+                            button29.setBackground(getResources().getDrawable(R.drawable.circle_shape));
+                        }
+                        button29.setEnabled(false);
+                        r++;
+                    }
+                    break;
+                default:
+                    r=0;
+                    break;
             }
-            else{
-                button26.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-            }
-            button26.setEnabled(false);
-
-            xTurn = !xTurn;
-            AImove = !AImove;
         }
-        else{
-            int r = 0;
-            while(r==0) {
-                Random rand2 = new Random();
-                int upperbound2 = 9;
-                int int_random2 = rand2.nextInt(upperbound2);
-                int swicz = int_random2 + 1;
-                switch (swicz) {
-                    case 1:
-                        if (matrix[0][0] == null) {
-                            matrix[0][0] = xTurn ? "X" : "O";
-                            if (xTurn == true) {
-                                button21.setBackground(getResources().getDrawable(R.drawable.cross_shape));
-                            } else {
-                                button21.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-                            }
-                            button21.setEnabled(false);
-                            r++;
-                        }
-                        break;
-                    case 2:
-                        if (matrix[0][1] == null) {
-                            matrix[0][1] = xTurn ? "X" : "O";
-                            if (xTurn == true) {
-                                button22.setBackground(getResources().getDrawable(R.drawable.cross_shape));
-                            } else {
-                                button22.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-                            }
-                            button22.setEnabled(false);
-                            r++;
-                        }
-                        break;
-                    case 3:
-                        if (matrix[0][2] == null) {
-                            matrix[0][2] = xTurn ? "X" : "O";
-                            if (xTurn == true) {
-                                button23.setBackground(getResources().getDrawable(R.drawable.cross_shape));
-                            } else {
-                                button23.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-                            }
-                            button23.setEnabled(false);
-                            r++;
-                        }
-                        break;
-                    case 4:
-                        if (matrix[1][0] == null) {
-                            matrix[1][0] = xTurn ? "X" : "O";
-                            if (xTurn == true) {
-                                button24.setBackground(getResources().getDrawable(R.drawable.cross_shape));
-                            } else {
-                                button24.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-                            }
-                            button24.setEnabled(false);
-                            r++;
-                        }
-                        break;
-                    case 5:
-                        if (matrix[1][1] == null) {
-                            matrix[1][1] = xTurn ? "X" : "O";
-                            if (xTurn == true) {
-                                button25.setBackground(getResources().getDrawable(R.drawable.cross_shape));
-                            } else {
-                                button25.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-                            }
-                            button25.setEnabled(false);
-                            r++;
-                        }
-                        break;
-                    case 6:
-                        if (matrix[1][2] == null) {
-                            matrix[1][2] = xTurn ? "X" : "O";
-                            if (xTurn == true) {
-                                button26.setBackground(getResources().getDrawable(R.drawable.cross_shape));
-                            } else {
-                                button26.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-                            }
-                            button26.setEnabled(false);
-                            r++;
-                        }
-                        break;
-                    case 7:
-                        if (matrix[2][0] == null) {
-                            matrix[2][0] = xTurn ? "X" : "O";
-                            if (xTurn == true) {
-                                button27.setBackground(getResources().getDrawable(R.drawable.cross_shape));
-                            } else {
-                                button27.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-                            }
-                            button27.setEnabled(false);
-                            r++;
-                        }
-                        break;
-                    case 8:
-                        if (matrix[2][1] == null) {
-                            matrix[2][1] = xTurn ? "X" : "O";
-                            if (xTurn == true) {
-                                button28.setBackground(getResources().getDrawable(R.drawable.cross_shape));
-                            } else {
-                                button28.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-                            }
-                            button28.setEnabled(false);
-                            r++;
-                        }
-                        break;
-                    case 9:
-                        if (matrix[2][2] == null) {
-                            matrix[2][2] = xTurn ? "X" : "O";
-                            if (xTurn == true) {
-                                button29.setBackground(getResources().getDrawable(R.drawable.cross_shape));
-                            } else {
-                                button29.setBackground(getResources().getDrawable(R.drawable.circle_shape));
-                            }
-                            button29.setEnabled(false);
-                            r++;
-                        }
-                        break;
-                    default:
-                        r=0;
-                        break;
-                }
-            }
-            xTurn = !xTurn;
-            AImove = !AImove;
-        }
+        xTurn = !xTurn;
+        AImove = !AImove;
     }
 
     public void disableButtons(){
@@ -424,23 +405,3 @@ public class gameAI extends Fragment {
         });
     }
 }
-
-/*
-Minimax(s):
-
-if Terminal(s);
-    return Value(s);
-
-if Player(s) == MAX:
-    value = -infinity
-    for a in Actions(s):
-        value = Max(value, Minimax(Result(s, a)))
-    return value
-
-if Player(s) == MIN:
-    value = infinity
-    for a in Actions(s):
-        value = Min(value, Minimax(Result(s, a)))
-    return value
-
- */

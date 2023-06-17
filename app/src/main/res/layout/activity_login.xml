@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/login"
+        android:text="Logowanie"
         android:gravity="center"
         android:textSize="24dp"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
@@ -24,7 +24,7 @@
         android:layout_height="65dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/username"
+        android:hint="Nazwa użytkownika"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
@@ -34,7 +34,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/username"
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableRight="@drawable/user" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -45,7 +45,7 @@
         android:layout_height="65dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/password"
+        android:hint="Hasło"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
-            android:layout_width="280dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:drawableRight="@drawable/password" />
@@ -64,7 +64,7 @@
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"
+        android:text="Zaloguj"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -76,7 +76,7 @@
         android:id="@+id/signUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sign_up"
+        android:text="Zarejestruj się"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
